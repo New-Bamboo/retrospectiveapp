@@ -1,0 +1,13 @@
+%html
+  %head
+    %title Retrospective
+    %link{:rel => 'stylesheet', :href => '/reset.css'}
+    %link{:rel => 'stylesheet', :href => '/app.css'}
+    %script{:type => 'text/javascript', :src => '/javascripts/jquery.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/jquery-ui.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/app.js'}
+  %body
+    #actionsContainer
+      - %w(postit purple green orange yellow).each do |colour| 
+        %a{:href => "#", :class => "addNote #{colour}"}
+    #notesContainer
