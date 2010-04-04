@@ -3,3 +3,6 @@ sinatra-rest
 haml
 dm-core
 do_postgres
+do_sqlite3
+dm-serializer
+pusher
