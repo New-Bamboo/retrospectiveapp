@@ -65,11 +65,12 @@ $(document).ready(function(){
       $.ajax({type:"PUT", url:'/notes/'+data.id+'.json', data: {'x':x,'y':y,'w':w,'h':h}});
     });
     
-    $("textarea").bind('keypress', function(){
-      var id   = $(this).parent()[0].id.split("_")[1];
-      var text = this.value
-      $.ajax({type:"PUT", url:'/notes/'+id+'/softupdate.json', data: {'text':text}});
-    });
+    // $("textarea").bind('keypress', function(){
+    //   $(this).delay(800);
+    //   var id   = $(this).parent()[0].id.split("_")[1];
+    //   var text = this.value;
+    //   $.ajax({type:"PUT", url:'/notes/'+id+'/softupdate.json', data: {'text':text}});
+    // });
   };
   
   function updateNote(data){
