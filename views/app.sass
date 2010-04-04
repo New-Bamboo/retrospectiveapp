@@ -40,7 +40,9 @@ body
     margin-top: 4%
           
     .note
-      float: left
+      position: absolute
+      left: 40px
+      top: 40px
       min-width: 10em
       min-height: 4em
       font-family: 'Bradley Hand ITC TT'
@@ -64,6 +66,9 @@ body
         height: 4em
         border: none
         text-align: center
+      
+      textarea.textedit:focus
+        outline: none
       
       .delete
         color: red
