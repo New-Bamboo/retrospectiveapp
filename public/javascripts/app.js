@@ -20,13 +20,18 @@ $(document).ready(function(){
   });
   
   $('.delete').live('click', function(){
-    $(this).parent().remove();
+    var id = $(this).parent()[0].id.split("_")[1];
+    $.ajax({type:"DELETE", url:'/notes/'+id+'.json'});
   });
 
   $('textarea').live('blur', function(){
     if (this.value == ""){
       this.value = "Click here to write";
     }
+    var id   = $(this).parent()[0].id.split("_")[1];
+    var text = this.value
+    $.ajax({type:"PUT", url:'/notes/'+id+'.json', data: {'text':text}});
+    
   });
   
   $.get('/notes.json', function(data){
@@ -34,9 +39,9 @@ $(document).ready(function(){
       generateNote(value);
     });
   });
-  
+    
   function generateNote(data){
-    var template = "<div class='note'><div class='delete'>x</div><textarea class='textedit'>"+ data.text + "</textarea></div>";
+    var template = "<div id='note_"+ data.id + "' class='note'><div class='delete'>x</div><textarea class='textedit'>"+ data.text + "</textarea></div>";
     template = $(template).addClass(data.color);
     template = $(template).css({
       '-webkit-transform':'rotate(-'+data.angle+'deg)',
@@ -52,10 +57,46 @@ $(document).ready(function(){
       distance: 10, 
       opacity: 0.75
     });
+    $(".note" ).bind( "dragstop", function(event, ui) {
+      var x = ui.position.left;
+      var y = ui.position.top;
+      var w = $(this).width();
+      var h = $(this).height();
+      $.ajax({type:"PUT", url:'/notes/'+data.id+'.json', data: {'x':x,'y':y,'w':w,'h':h}});
+    });
+    
+    $("textarea").bind('keypress', function(){
+      var id   = $(this).parent()[0].id.split("_")[1];
+      var text = this.value
+      $.ajax({type:"PUT", url:'/notes/'+id+'/softupdate.json', data: {'text':text}});
+    });
+  };
+  
+  function updateNote(data){
+    var note = $("#note_" + data.id);
+    xx = $(note).find("textarea")[0].value = data.text;
+    $(note).css({
+      'min-width': data.w,
+      'min-height': data.h,
+      'left': data.x,
+      'top': data.y
+    });
   };
   
   server.bind('note-create', function(note) {
     generateNote(JSON.parse(note));
+  });
+
+  server.bind('note-destroy', function(data) {
+    $("#note_"+JSON.parse(data).id).remove();
+  });
+  
+  server.bind('note-update', function(note) {
+    updateNote(JSON.parse(note));
+  });
+
+  server.bind('note-softupdate', function(note) {
+    updateNote(JSON.parse(note));
   });
   
 });

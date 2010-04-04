@@ -50,22 +50,28 @@ post '/notes.json' do
   content_type 'text/json', :charset => 'utf-8'
   n = Note.new(params)
   n.save
-  Pusher['retrospectiveapp-development'].trigger('note-create', n.attributes.to_json)
-  n.attributes.to_json
-  # if successful, broadcast note creation to all browser windows 
+  Pusher['retrospectiveapp-development'].trigger('note-create', n.to_json)
+  n.to_json
 end
 
 put '/notes/:id.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
-  n = Note.get(id).update(params)
-  n.attributes.to_json
-  # if successful, broadcast note update to all browser windows
+  n = Note.get(id)
+  n.update(params)
+  Pusher['retrospectiveapp-development'].trigger('note-update', n.to_json)
+  n.to_json
+end
+
+put '/notes/:id/softupdate.json' do |id|
+  content_type 'text/json', :charset => 'utf-8'
+  Pusher['retrospectiveapp-development'].trigger('note-softupdate', params.to_json)
 end
 
 delete '/notes/:id.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
   n = Note.get(id).destroy!
-  # if successful, broadcast note deletion to all browser windows
+  Pusher['retrospectiveapp-development'].trigger('note-destroy', {:id => id}.to_json)
+  {:id => id}.to_json
 end
 
 #### CSS Routes
