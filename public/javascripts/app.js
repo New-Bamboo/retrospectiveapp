@@ -57,7 +57,7 @@ $(document).ready(function(){
       distance: 10, 
       opacity: 0.75
     });
-    $(".note" ).bind( "dragstop", function(event, ui) {
+    $(template).bind( "dragstop", function(event, ui) {
       var x = ui.position.left;
       var y = ui.position.top;
       var w = $(this).width();
@@ -65,18 +65,12 @@ $(document).ready(function(){
       $.ajax({type:"PUT", url:'/notes/'+data.id+'.json', data: {'x':x,'y':y,'w':w,'h':h}});
     });
     
-    // $("textarea").bind('keypress', function(){
-    //   $(this).delay(800);
-    //   var id   = $(this).parent()[0].id.split("_")[1];
-    //   var text = this.value;
-    //   $.ajax({type:"PUT", url:'/notes/'+id+'/softupdate.json', data: {'text':text}});
-    // });
   };
   
   function updateNote(data){
     var note = $("#note_" + data.id);
     xx = $(note).find("textarea")[0].value = data.text;
-    $(note).css({
+    note.css({
       'min-width': data.w,
       'min-height': data.h,
       'left': data.x,
