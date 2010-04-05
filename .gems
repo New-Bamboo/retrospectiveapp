@@ -1,8 +1,7 @@
-sinatra
-sinatra-rest
-haml
-dm-core
-do_postgres
-do_sqlite3
-dm-serializer
-pusher
+sinatra        --version '1.0b'
+haml           --version '2.2.19'
+dm-core        --version '0.10.2'
+do_postgres    --version '0.10.1'
+do_sqlite3     --version '0.10.1.1'
+dm-serializer  --version '0.10.2'
+pusher         --version '0.3.0'
