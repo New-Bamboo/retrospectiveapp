@@ -56,6 +56,7 @@ $(document).ready(function(){
       'left': data.x,
       'top': data.y  
     });
+    template.find("textarea").width(data.w - 4).height(data.h - 4);
     $('#notesContainer').append(template);
     $('.note').draggable({ 
       containment: 'parent', 
@@ -74,13 +75,14 @@ $(document).ready(function(){
   
   function updateNote(data){
     var note = $("#note_" + data.id);
-    xx = $(note).find("textarea")[0].value = data.text;
+    note.find("textarea")[0].value = data.text;
     note.css({
       'min-width': data.w,
       'min-height': data.h,
       'left': data.x,
       'top': data.y
     });
+    note.find("textarea").width(data.w - 4).height(data.h - 4);
   };
   
   server.bind('note-create', function(note) {
