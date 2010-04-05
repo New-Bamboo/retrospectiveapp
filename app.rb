@@ -7,7 +7,7 @@ require 'dm-core'
 require 'dm-serializer'
 require 'pusher'
 Pusher.key = 'c9f08e8c50f6f0cfb136'
-
+PUSHER_CHANNEL = 'retrospectiveapp-' + Sinatra::Application.environment.to_s
 #### DB Models
 
 class Note
@@ -50,7 +50,7 @@ post '/notes.json' do
   content_type 'text/json', :charset => 'utf-8'
   n = Note.new(params)
   n.save
-  Pusher['retrospectiveapp-'+RAILS_ENV].trigger('note-create', n.to_json)
+  Pusher[PUSHER_CHANNEL].trigger('note-create', n.to_json)
   n.to_json
 end
 
@@ -58,19 +58,19 @@ put '/notes/:id.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
   n = Note.get(id)
   n.update(params)
-  Pusher['retrospectiveapp-'+RAILS_ENV].trigger('note-update', n.to_json)
+  Pusher[PUSHER_CHANNEL].trigger('note-update', n.to_json)
   n.to_json
 end
 
 put '/notes/:id/softupdate.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
-  Pusher['retrospectiveapp-'+RAILS_ENV].trigger('note-softupdate', params.to_json)
+  Pusher[PUSHER_CHANNEL].trigger('note-softupdate', params.to_json)
 end
 
 delete '/notes/:id.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
   n = Note.get(id).destroy!
-  Pusher['retrospectiveapp-'+RAILS_ENV].trigger('note-destroy', {:id => id}.to_json)
+  Pusher[PUSHER_CHANNEL].trigger('note-destroy', {:id => id}.to_json)
   {:id => id}.to_json
 end
 
