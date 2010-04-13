@@ -4,17 +4,21 @@ $(document).ready(function(){
     'retrospectiveapp.heroku.com': 'production'  
   };
   jsEnv = jsEnvironments[document.location.host];
-  server = new Pusher('c9f08e8c50f6f0cfb136', 'retrospectiveapp-'+jsEnv);
-    
+  if (Pusher){
+    server = new Pusher('c9f08e8c50f6f0cfb136', 'retrospectiveapp-'+jsEnv);
+  }
+  
   $('.addNote').click(function(){
     $.post('/notes.json', {
-      'color' : this.className.split(' ')[1], 
-      'text'  : 'Click here to write', 
-      'angle' : Math.random()*5,
-      'w'     : 100,
-      'h'     : 80,
-      'x'     : 40,
-      'y'     : 40
+      'note'  : {
+        'color' : this.className.split(' ')[1], 
+        'text'  : 'Click here to write', 
+        'angle' : Math.random()*5,
+        'w'     : 100,
+        'h'     : 80,
+        'x'     : 40,
+        'y'     : 40
+      } 
     });
   });
   
@@ -35,8 +39,14 @@ $(document).ready(function(){
     }
     var id   = $(this).parent()[0].id.split("_")[1];
     var text = this.value
-    $.ajax({type:"PUT", url:'/notes/'+id+'.json', data: {'text':text}});
+    $.ajax({type:"PUT", url:'/notes/'+id+'.json', data: {'note':{'text':text}}});
     
+  });
+  
+  $('textarea').live('keypress', function(){
+    var id   = $(this).parent()[0].id.split("_")[1];
+    var text = this.value
+    $.ajax({type:"PUT", url:'/notes/'+id+'/softupdate.json', data: {'note':{'id':id,'text':text}}});
   });
   
   $.get('/notes.json', function(data){
@@ -68,7 +78,7 @@ $(document).ready(function(){
       var y = ui.position.top;
       var w = $(this).width();
       var h = $(this).height();
-      $.ajax({type:"PUT", url:'/notes/'+data.id+'.json', data: {'x':x,'y':y,'w':w,'h':h}});
+      $.ajax({type:"PUT", url:'/notes/'+data.id+'.json', data: {'note':{'x':x,'y':y,'w':w,'h':h}}});
     });
     
   };
@@ -85,20 +95,30 @@ $(document).ready(function(){
     note.find("textarea").width(data.w - 4).height(data.h - 4);
   };
   
-  server.bind('note-create', function(note) {
-    generateNote(JSON.parse(note));
-  });
+  if (server){
+    server.bind('note-create', function(note) {
+      generateNote(JSON.parse(note));
+    });
 
-  server.bind('note-destroy', function(data) {
-    $("#note_"+JSON.parse(data).id).remove();
-  });
+    server.bind('note-destroy', function(data) {
+      $("#note_"+JSON.parse(data).id).remove();
+    });
   
-  server.bind('note-update', function(note) {
-    updateNote(JSON.parse(note));
-  });
+    server.bind('note-update', function(note) {
+      updateNote(JSON.parse(note));
+    });
 
-  server.bind('note-softupdate', function(note) {
-    updateNote(JSON.parse(note));
-  });
+    server.bind('note-softupdate', function(note) {
+      updateNote(JSON.parse(note));
+    });
+  
+    server.bind('connection_established', function(evt){
+      jQuery.ajaxSetup({
+        data: {
+          socket_id: evt.socket_id
+        }
+      })
+    });
+  }
   
 });

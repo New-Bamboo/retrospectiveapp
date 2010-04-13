@@ -48,23 +48,25 @@ end
 
 post '/notes.json' do
   content_type 'text/json', :charset => 'utf-8'
-  n = Note.new(params)
+  n = Note.new(params[:note])
   n.save
   Pusher[PUSHER_CHANNEL].trigger('note-create', n.to_json)
   n.to_json
 end
 
+put '/notes/:id/softupdate.json' do
+  content_type 'text/json', :charset => 'utf-8'
+  Pusher[PUSHER_CHANNEL].trigger('note-softupdate', params[:note].to_json, params[:socket_id])
+  params[:note].to_json
+end
+
+
 put '/notes/:id.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
   n = Note.get(id)
-  n.update(params)
+  n.update(params[:note])
   Pusher[PUSHER_CHANNEL].trigger('note-update', n.to_json)
   n.to_json
-end
-
-put '/notes/:id/softupdate.json' do |id|
-  content_type 'text/json', :charset => 'utf-8'
-  Pusher[PUSHER_CHANNEL].trigger('note-softupdate', params.to_json)
 end
 
 delete '/notes/:id.json' do |id|
