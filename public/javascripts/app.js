@@ -46,7 +46,7 @@ $(document).ready(function(){
   $('textarea').live('keypress', function(){
     var id   = $(this).parent()[0].id.split("_")[1];
     var text = this.value
-    // $.ajax({type:"PUT", url:'/notes/'+id+'/softupdate.json', data: {'note':{'id':id,'text':text}}});
+    $.ajax({type:"PUT", url:'/notes/'+id+'/softupdate.json', data: {'note':{'id':id,'text':text}}});
   });
   
   $.get('/notes.json', function(data){
