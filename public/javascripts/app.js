@@ -67,6 +67,7 @@ $(document).ready(function(){
       'top': data.y  
     });
     template.find("textarea").width(data.w - 4).height(data.h - 4);
+    template.find("textarea").autoResize();
     $('#notesContainer').append(template);
     $('.note').draggable({ 
       containment: 'parent', 
