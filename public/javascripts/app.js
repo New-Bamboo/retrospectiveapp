@@ -98,19 +98,19 @@ $(document).ready(function(){
   
   if (server){
     server.bind('note-create', function(note) {
-      generateNote(JSON.parse(note));
+      generateNote(note);
     });
 
     server.bind('note-destroy', function(data) {
-      $("#note_"+JSON.parse(data).id).remove();
+      $("#note_"+data.id).remove();
     });
   
     server.bind('note-update', function(note) {
-      updateNote(JSON.parse(note));
+      updateNote(note);
     });
 
     server.bind('note-softupdate', function(note) {
-      updateNote(JSON.parse(note));
+      updateNote(note);
     });
   
     server.bind('connection_established', function(evt){
