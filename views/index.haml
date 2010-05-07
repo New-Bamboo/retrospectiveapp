@@ -3,15 +3,28 @@
     %title Retrospective
     %link{:rel => 'stylesheet', :href => '/reset.css'}
     %link{:rel => 'stylesheet', :href => '/app.css'}
-    %script{:type => 'text/javascript', :src => 'http://js.pusherapp.com/1.2/pusher.min.js'}
-    %script{:type => 'text/javascript', :src => '/javascripts/jquery.js'}
-    %script{:type => 'text/javascript', :src => '/javascripts/jquery-ui.js'}
-    %script{:type => 'text/javascript', :src => '/javascripts/autoresize.js'}
+    / %script{:type => 'text/javascript', :src => 'http://js.pusherapp.com/1.2/pusher.min.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/lib/jquery.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/lib/jquery-ui.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/lib/underscore.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/lib/sammy.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/lib/autoresize.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/lib/js-model.js'}
+
+    %script{:type => 'text/javascript', :src => '/javascripts/models/note.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/views/note_template.js'}
+
     %script{:type => 'text/javascript', :src => '/javascripts/app.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/routes.js'}
     :javascript
       WebSocket.__swfLocation = "/WebSocketMain.swf";
   %body
     #actionsContainer
       - %w(postit purple green orange yellow).each do |colour| 
-        %a{:href => "#", :class => "addNote #{colour}"}          
+        %a{:href => "#/notes/new/#{colour}", :class => "addNote #{colour}"}          
     #notesContainer
+    #noteTemplate
+      .note
+        %a{ :class => 'delete', :href => '#/notes/:id/delete' } x
+        %form{ :method => 'put', :action => '#/notes/:id' }
+          %textarea{ :name => 'text', :class => 'textedit' }
