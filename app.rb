@@ -50,13 +50,13 @@ post '/notes.json' do
   content_type 'text/json', :charset => 'utf-8'
   n = Note.new(params[:note])
   n.save
-  Pusher[PUSHER_CHANNEL].trigger('note-create', n.to_json)
+  Pusher[PUSHER_CHANNEL].trigger_async('note-create', n.to_json)
   n.to_json
 end
 
 put '/notes/:id/softupdate.json' do
   content_type 'text/json', :charset => 'utf-8'
-  Pusher[PUSHER_CHANNEL].trigger('note-softupdate', params[:note].to_json, params[:socket_id])
+  Pusher[PUSHER_CHANNEL].trigger_async('note-softupdate', params[:note].to_json, params[:socket_id])
   params[:note].to_json
 end
 
@@ -65,14 +65,14 @@ put '/notes/:id.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
   n = Note.get(id)
   n.update(params[:note])
-  Pusher[PUSHER_CHANNEL].trigger('note-update', n.to_json)
+  Pusher[PUSHER_CHANNEL].trigger_async('note-update', n.to_json)
   n.to_json
 end
 
 delete '/notes/:id.json' do |id|
   content_type 'text/json', :charset => 'utf-8'
   n = Note.get(id).destroy!
-  Pusher[PUSHER_CHANNEL].trigger('note-destroy', {:id => id}.to_json)
+  Pusher[PUSHER_CHANNEL].trigger_async('note-destroy', {:id => id}.to_json)
   {:id => id}.to_json
 end
 
