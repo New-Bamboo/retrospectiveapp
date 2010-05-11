@@ -10,6 +10,8 @@
     %script{:type => 'text/javascript', :src => '/javascripts/app.js'}
     :javascript
       WebSocket.__swfLocation = "/WebSocketMain.swf";
+      Pusher.key = '#{Pusher.key}'
+      Pusher.channel = '#{PUSHER_CHANNEL}'
   %body
     #actionsContainer
       - %w(postit purple green orange yellow).each do |colour| 

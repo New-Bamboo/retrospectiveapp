@@ -1,11 +1,6 @@
 $(document).ready(function(){
-  jsEnvironments = {
-    'retrospectiveapp.local': 'development',
-    'retrospectiveapp.heroku.com': 'production'  
-  };
-  jsEnv = jsEnvironments[document.location.host];
   if (Pusher){
-    server = new Pusher('c9f08e8c50f6f0cfb136', 'retrospectiveapp-'+jsEnv);
+    server = new Pusher(Pusher.key, Pusher.channel);
   }
   
   $('.addNote').click(function(){

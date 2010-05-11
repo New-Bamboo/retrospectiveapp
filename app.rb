@@ -6,8 +6,9 @@ require 'haml'
 require 'dm-core'
 require 'dm-serializer'
 require 'pusher'
-Pusher.key = 'c9f08e8c50f6f0cfb136'
+
 PUSHER_CHANNEL = 'retrospectiveapp-' + Sinatra::Application.environment.to_s
+
 #### DB Models
 
 class Note
