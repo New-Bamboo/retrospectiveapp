@@ -12,9 +12,12 @@ app = $.sammy(function() {
   })
 
   this.get('#/', function () {
+    var self = this
     if (typeof current_board === 'undefined') {
-      current_board = new Board ()
-      current_board.save()
+      current_board = new Board ({'_id': generateBoardId()})
+      current_board.save(function () {
+        self.trigger('draw-board', current_board)
+      })
     };
     this.trigger('draw-board', current_board)
   })
