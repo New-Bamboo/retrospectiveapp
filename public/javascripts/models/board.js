@@ -22,7 +22,7 @@ Board = Model("board", {
   },
 
   location: function () {
-    return window.location.href + 'boards/' + current_board.id()
+    return window.location.href + 'boards/' + this.id()
   },
 
   toString: function () {
