@@ -24,6 +24,7 @@ Board = Model("board", {
   toString: function () {
     var notes_json = []
     $.each(Note.all(), function () {
+      this.save()
       notes_json.push(this.toString())
     })
     this.attributes['notes'] = notes_json
