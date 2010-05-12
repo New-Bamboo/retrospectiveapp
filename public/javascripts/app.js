@@ -21,23 +21,31 @@ var colours = [
   'black',
   'grey',
   'gold',
-  'silver'
+  'silver',
+  'orange',
+  'indigo',
+  'mauve'
 ]
 
 var animals = [
   'tiger',
   'lion',
   'ant',
+  'beetle',
+  'hippo',
+  'spider',
   'aardvark',
   'giraffe',
   'elephant',
   'shark',
+  'sparrow',
   'falcon',
   'kestral',
   'baboon',
   'lama',
   'camel',
   'adder',
+  'wasp',
   'worm',
   'fox',
   'elephant',
