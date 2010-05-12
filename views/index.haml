@@ -12,7 +12,9 @@
     %script{:type => 'text/javascript', :src => '/javascripts/lib/js-model.js'}
 
     %script{:type => 'text/javascript', :src => '/javascripts/models/note.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/models/board.js'}
     %script{:type => 'text/javascript', :src => '/javascripts/views/note_template.js'}
+    %script{:type => 'text/javascript', :src => '/javascripts/views/board_template.js'}
 
     %script{:type => 'text/javascript', :src => '/javascripts/app.js'}
     %script{:type => 'text/javascript', :src => '/javascripts/routes.js'}
@@ -21,8 +23,11 @@
   %body
     #actionsContainer
       - %w(postit purple green orange yellow).each do |colour| 
-        %a{:href => "#/notes/new/#{colour}", :class => "addNote #{colour}"}          
+        %a{:href => "#/notes/new/#{colour}", :class => "addNote #{colour}"}
+    #currentBoard
     #notesContainer
+    #boardTemplate
+      %h1
     #noteTemplate
       .note
         %a{ :class => 'delete', :href => '#/notes/:id/delete' } x

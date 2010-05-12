@@ -29,7 +29,7 @@ var NoteTemplate = function (note) {
       w: $(this).width(),
       h: $(this).height()
     })
-    note.save()
+    current_board.save()
   })
 
   this.html.find('textarea')
@@ -41,32 +41,3 @@ var NoteTemplate = function (note) {
     })
 
 }
-
-// function generateNote(data){
-//   var template = "<div id='note_"+ data._id + "' class='note'><div class='delete'>x</div><textarea class='textedit'>"+ data.text + "</textarea></div>";
-//   template = $(template).addClass(data.color);
-//   template = $(template).css({
-//     '-webkit-transform':'rotate(-'+data.angle+'deg)',
-//     '-moz-transform':'rotate(-'+data.angle+'deg)',
-//     'min-width': data.w,
-//     'min-height': data.h,
-//     'left': data.x,
-//     'top': data.y  
-//   });
-//   template.find("textarea").width(data.w - 4).height(data.h - 4);
-//   // template.find("textarea").autoResize();
-//   $('#notesContainer').append(template);
-//   $('.note').draggable({ 
-//     containment: 'parent', 
-//     distance: 10, 
-//     opacity: 0.75
-//   });
-//   $(template).bind( "dragstop", function(event, ui) {
-//     var x = ui.position.left;
-//     var y = ui.position.top;
-//     var w = $(this).width();
-//     var h = $(this).height();
-//     $.ajax({type:"PUT", url:'/notes/'+data._id, data: JSON.stringify({'note':{'x':x,'y':y,'w':w,'h':h}})});
-//   });
-//   
-// };

@@ -1,5 +1,7 @@
 Note = Model("note", {
-  persistence: Model.RackJSONPersistence('/notes')
+  clear: function () {
+    this.colleciton = []
+  }
 }, {
 
   id: function () {
