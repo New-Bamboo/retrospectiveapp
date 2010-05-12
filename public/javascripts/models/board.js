@@ -21,6 +21,10 @@ Board = Model("board", {
     })
   },
 
+  location: function () {
+    return window.location.href + 'boards/' + current_board.id()
+  },
+
   toString: function () {
     var notes_json = []
     $.each(Note.all(), function () {
