@@ -1,3 +1,20 @@
+=roundCorners(!radius = 1px)
+  -webkit-border-radius= !radius
+  -moz-border-radius= !radius
+  border-radius= !radius
+
+=boxShadow(!x = 0px, !y = 3px, !blur = 6px, !colour = #222)
+  -webkit-box-shadow= !x !y !blur !colour
+  -moz-box-shadow= !x !y !blur !colour
+
+=rotate(!angle = -4deg)
+  -webkit-transform= rotate(!angle)
+  -moz-transform= rotate(!angle)
+
+=backgroundGradient(!colour1 = #FF00D4, !colour2 = #D801B4)
+  background= !colour1
+  background= -webkit-gradient(linear, left bottom, left top, color-stop(0.25, !colour2), color-stop(0.76, !colour1))
+
 body
   margin: 0
   padding: 0
@@ -12,20 +29,17 @@ body
     left: 0px
   
     a.addNote
+      +roundCorners
+      +boxShadow
+      +rotate
       text-align: center
       font-weight: bold
       padding: 3px 5px
       font-size: 1.6em
       text-decoration: none
-      -webkit-border-radius: 1px
-      -moz-border-radius: 1px
       display: block
       padding: 25px 5px 5px
-      -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.85)
-      -moz-box-shadow: 0 3px 6px rgba(0,0,0,.65)
       vertical-align: middle
-      -webkit-transform: rotate(-4deg)
-      -moz-transform: rotate(-4deg)
       float: left
       margin: -5px 10px 0px
       color: black
@@ -37,16 +51,12 @@ body
     right: 20px
 
     h1
+      +roundCorners
+      +boxShadow
+      +rotate(2deg)
+      +backgroundGradient(rgb(247,242,104), rgb(247,244,143))
       padding: 10px
-      background: rgb(247,242,104)
-      background: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, rgb(247,242,104)), color-stop(0.76, rgb(247,244,143)))
       font-size: 1.6em
-      -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.85)
-      -moz-box-shadow: 0 3px 6px rgba(0,0,0,.65)
-      -webkit-transform: rotate(2deg)
-      -moz-transform: rotate(2deg)
-      -webkit-border-radius: 1px
-      -moz-border-radius: 1px
 
   #notesContainer
     margin: 0 auto
@@ -56,6 +66,8 @@ body
     margin-top: 4%
           
     .note
+      +boxShadow
+      +rotate(-1deg)
       position: absolute
       left: 40px
       top: 40px
@@ -65,11 +77,7 @@ body
       font-style: italic
       font-size: 1.8em
       padding: 25px 5px 7px
-      -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.85)
-      -moz-box-shadow: 0 3px 6px rgba(0,0,0,.65)
       vertical-align: middle
-      -webkit-transform: rotate(-1deg)
-      -moz-transform: rotate(-1deg)
       cursor: move
       margin: 10px
         
@@ -87,9 +95,8 @@ body
         outline: none
       
       .delete
+        +roundCorners
         color: red
-        -webkit-border-radius: 10px
-        -moz-border-radius: 10px
         display: block
         position: absolute
         top: 0px
@@ -97,21 +104,16 @@ body
         cursor: pointer
     
 .postit
-  background: rgb(247,242,104)
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, rgb(247,242,104)), color-stop(0.76, rgb(247,244,143)))
+  +backgroundGradient(rgb(247,242,104), rgb(247,244,143))
 
 .purple
-  background: #FF00D4
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, #D801B4), color-stop(0.76, #FF00D4))
+  +backgroundGradient(#FF00D4, #D801B4)
   
 .green
-  background: #61BD00
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, #61BD00), color-stop(0.76, #61BD00))
+  +backgroundGradient(#61BD00, #57A800)
       
 .orange
-  background: #FF9100
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, #FF9100), color-stop(0.76, #FF9100))
+  +backgroundGradient(#FF9200, #EA8600)
   
 .yellow
-  background: #F7FF00
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0.25, #F7FF00), color-stop(0.76, #F7FF00))
+  +backgroundGradient(#F7FF00, #E2EA00)
