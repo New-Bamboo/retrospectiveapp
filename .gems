@@ -5,3 +5,5 @@ do_postgres    --version '0.10.1'
 do_sqlite3     --version '0.10.1.1'
 dm-serializer  --version '0.10.2'
 pusher         --version '0.4.0'
+rackjson
+rack_push
