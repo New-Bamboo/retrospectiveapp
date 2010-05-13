@@ -29,7 +29,9 @@ var NoteTemplate = function (note) {
       w: $(this).width(),
       h: $(this).height()
     })
-    current_board.save()
+    current_board.save(function () {
+      current_board.broadcast()
+    })
   })
 
   this.html.find('textarea')

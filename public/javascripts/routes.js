@@ -19,6 +19,7 @@ app = $.sammy(function() {
         self.trigger('draw-board', current_board)
       })
     };
+    startSockets()
     this.trigger('draw-board', current_board)
   })
 
@@ -32,7 +33,10 @@ app = $.sammy(function() {
   this.put('#/notes/:id', function () {
     var note = Note.find(this.params['id'])
     note.attr('text', this.params.toHash()['text'])
-    current_board.save()
+    current_board.save(function () {
+      current_board.broadcast()
+      self.redirect('#/')
+    })
     return false
   })
 
@@ -41,6 +45,7 @@ app = $.sammy(function() {
     var note = Note.find(this.params['id'])
     note.destroy()
     current_board.save(function () {
+      current_board.broadcast()
       self.redirect('#/')
     })
   })
@@ -59,6 +64,7 @@ app = $.sammy(function() {
     })
     Note.add(note)
     current_board.save(function () {
+      current_board.broadcast()
       self.redirect('#/')
     })
   })

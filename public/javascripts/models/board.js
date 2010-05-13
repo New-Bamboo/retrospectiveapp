@@ -10,12 +10,20 @@ Board = Model("board", {
   }
 }, {
 
+  broadcast: function () {
+    $.ajax({
+      type: 'POST',
+      url: '/pusher/' + this.id() + '?event=board-update&socket_id=' + socket_id,
+      data: this.toString()
+    })
+  },
+
   id: function () {
     return this.attributes["_id"] || this.attributes["id"] || null;
   },
 
   loadNotes: function () {
-    Note.clear()
+    Note.collection = []
     $.each(this.attributes['notes'] || [], function () {
       Note.add(new Note(JSON.parse(this)))
     })
