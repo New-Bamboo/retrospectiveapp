@@ -4,5 +4,6 @@ dm-core        --version '0.10.2'
 do_postgres    --version '0.10.1'
 do_sqlite3     --version '0.10.1.1'
 dm-serializer  --version '0.10.2'
-pusher         --version '0.4.3'
+pusher         --version '0.5.3'
+signature
 em-http-request
