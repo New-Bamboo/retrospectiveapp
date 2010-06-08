@@ -1,9 +1,9 @@
-sinatra        --version '1.0'
-haml           --version '2.2.19'
-dm-core        --version '0.10.2'
-do_postgres    --version '0.10.1'
-do_sqlite3     --version '0.10.1.1'
-dm-serializer  --version '0.10.2'
-pusher         --version '0.5.3'
-signature
-em-http-request
+sinatra         --version '1.0'
+haml            --version '2.2.19'
+dm-core         --version '0.10.2'
+do_postgres     --version '0.10.1'
+do_sqlite3      --version '0.10.1.1'
+dm-serializer   --version '0.10.2'
+signature       --version '0.1.0'
+pusher          --version '0.5.3'
+em-http-request --version '0.2.6'
