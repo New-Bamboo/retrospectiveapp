@@ -12,7 +12,7 @@
       WebSocket.__swfLocation = "/WebSocketMain.swf";
       Pusher.key = '#{Pusher.key}'
       Pusher.channel = '#{PUSHER_CHANNEL}'
-  %body
+  %body{:ondragstart => 'BodyDragHandler()', :ondragend => 'BodyDragEndHandler()'}
     #actionsContainer
       - %w(postit purple green orange yellow).each do |colour| 
         %a{:href => "#", :class => "addNote #{colour}"}          
