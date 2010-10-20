@@ -7,10 +7,15 @@ require 'dm-core'
 require 'dm-serializer'
 require 'pusher'
 
-Pusher.app_id = '17'
-Pusher.key = 'c9f08e8c50f6f0cfb136'
-Pusher.secret = '5eeec6ac0f4da8ad248a'
-
+if ENV['PUSHER_APP_ID']
+  Pusher.app_id = ENV['PUSHER_APP_ID']
+  Pusher.key = ENV['PUSHER_KEY']
+  Pusher.secret = ENV['PUSHER_SECRET']
+else
+  Pusher.app_id = '17'
+  Pusher.key = 'c9f08e8c50f6f0cfb136'
+  Pusher.secret = '5eeec6ac0f4da8ad248a'
+end
 PUSHER_CHANNEL = 'retrospectiveapp-' + Sinatra::Application.environment.to_s
 
 
