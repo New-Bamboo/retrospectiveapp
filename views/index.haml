@@ -3,13 +3,13 @@
     %title Retrospective
     %link{:rel => 'stylesheet', :href => '/reset.css'}
     %link{:rel => 'stylesheet', :href => '/app.css'}
-    %script{:type => 'text/javascript', :src => 'http://js.pusherapp.com/1.2/pusher.min.js'}
+    %script{:type => 'text/javascript', :src => 'http://js.pusherapp.com/1.6/pusher.min.js'}
     %script{:type => 'text/javascript', :src => '/javascripts/jquery.js'}
     %script{:type => 'text/javascript', :src => '/javascripts/jquery-ui.js'}
     %script{:type => 'text/javascript', :src => '/javascripts/autoresize.js'}
     %script{:type => 'text/javascript', :src => '/javascripts/app.js'}
     :javascript
-      WebSocket.__swfLocation = "/WebSocketMain.swf";
+      WEB_SOCKET_DEBUG = true;
       Pusher.key = '#{Pusher.key}'
       Pusher.channel = '#{PUSHER_CHANNEL}'
   %body
