@@ -1,6 +1,7 @@
 $(document).ready(function(){
   if (Pusher){
-    server = new Pusher(Pusher.key, Pusher.channel);
+    pusher = new Pusher(Pusher.key);
+    pusher.subscribe(Pusher.channel);
   }
   
   $('.addNote').click(function(){
@@ -91,24 +92,24 @@ $(document).ready(function(){
     note.find("textarea").width(data.w - 4).height(data.h - 4);
   };
   
-  if (server){
-    server.bind('note-create', function(note) {
+  if (pusher){
+    pusher.bind('note-create', function(note) {
       generateNote(note);
     });
 
-    server.bind('note-destroy', function(data) {
+    pusher.bind('note-destroy', function(data) {
       $("#note_"+data.id).remove();
     });
   
-    server.bind('note-update', function(note) {
+    pusher.bind('note-update', function(note) {
       updateNote(note);
     });
 
-    server.bind('note-softupdate', function(note) {
+    pusher.bind('note-softupdate', function(note) {
       updateNote(note);
     });
   
-    server.bind('connection_established', function(evt){
+    pusher.bind('connection_established', function(evt){
       jQuery.ajaxSetup({
         data: {
           socket_id: evt.socket_id
