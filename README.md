@@ -8,6 +8,7 @@ Create a new app (you need to use the bamboo stack)
 
     heroku create
     heroku stack:migrate bamboo-ree-1.8.7
+    git push heroku master
 
 Get the database set up by running auto migrations from datamapper
 
